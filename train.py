@@ -15,8 +15,8 @@ def loadData():
     trainset = torchvision.datasets.MNIST(root='./data', train=True, download=False, transform=transform)
     testset = torchvision.datasets.MNIST(root='./data', train=False, download=False, transform=transform)
     # 将训练集的m张图片划分成(m/4)份，每份4张图，用于mini-batch输入。shffule=True在表示不同批次的数据遍历时，打乱顺序。num_workers=2表示使用两个子进程来加载数据
-    train_loader = torch.utils.data.DataLoader(trainset, batch_size=1, shuffle=True, num_workers=2)
-    test_loader = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=True, num_workers=2)
+    train_loader = torch.utils.data.DataLoader(trainset, batch_size=60, shuffle=True, num_workers=2)
+    test_loader = torch.utils.data.DataLoader(testset, batch_size=60, shuffle=True, num_workers=2)
     return train_loader,test_loader
 
 def trainModel(epoch,train_loader,model,optimizer,criterion):
@@ -76,7 +76,7 @@ def run():
     # 叉熵损失函数
     criterion = nn.CrossEntropyLoss()
 
-    for epoch in range(1, 2):
+    for epoch in range(1, 11):
         trainModel(epoch, train_loader, model, optimizer, criterion)
         testModel(epoch, test_loader, model, optimizer, criterion)
 
